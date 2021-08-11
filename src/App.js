@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from 'axios'
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import Body from "./components/Body";
-import Explanation from "./components/Explanation";
+
 
 
 
@@ -16,13 +13,20 @@ import Explanation from "./components/Explanation";
 
 
 function App() {
-  const [nasapic, setNasaPic] = useState("");
+  const [nasapic, setNasaPic] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [date, setDate] = useState([]);
+  const [explanation, setExplanation] = useState([])
+  const [author, setAuthor] = useState([])
 
   useEffect(() => {
-    axios.get(" https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1")
+    axios.get(" https://api.nasa.gov/planetary/apod?api_key=AKjTj8JDEFEIdVmr3yzGcAgNvyr3cxz5UjROP886")
       .then(res => {
         setNasaPic(res.data)
-        console.log(res.data)
+        setTitle(res.data)
+        setDate(res.data)
+        setExplanation(res.data)
+        setAuthor(res.data)
       })
       .catch(err => console.log(err))
   }, []);
@@ -35,10 +39,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      <Header />
-      <Body />
-      <Explanation />
+      <h1>{title.title}</h1>
+      <h2>By {author.copyright}</h2>
+      <img src={nasapic.hdurl}></img>
+      <p>{explanation.explanation}</p>
+      <p>{date.date}</p>
 
     </div>
   );
